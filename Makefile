@@ -18,13 +18,16 @@ BIN := $(BIN_DIR)/banner-commenter
 # main target
 all: $(BIN)
 
+version.h:
+	bash get_version.sh
+
 
 # linking binary
-$(BIN): $(OBJS) | $(BIN_DIR)
+$(BIN): $(OBJS) version.h | $(BIN_DIR)
 	$(CC) $(OBJS) -o $@
 
 # compiling object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR) version.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
@@ -38,7 +41,7 @@ $(BIN_DIR):
 
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(BIN_DIR) version.h
 
 
 .PHONY: clean
