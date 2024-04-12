@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 
 
 void cpyargs(int n, char *args_orig[], char *args_cpy[]) {
@@ -25,7 +26,20 @@ void convertUpperCase(int n, char *args[]) {
   }
 }
 
+void get_terminal_dim(struct winsize *sz) {
+  ioctl(0, TIOCGWINSZ, sz);
+  return;
+}
+
 int main(int argc, char *argv[]) {
+
+  struct winsize sz;
+  get_terminal_dim(&sz);
+
+  if (sz.ws_col <= 50) {
+    printf("screen size too small!\n");
+    return EXIT_FAILURE;
+  }
 
   // create copy of every argv
   char **args = (char **)malloc(argc + 1);
