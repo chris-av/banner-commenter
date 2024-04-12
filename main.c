@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
   char **args = (char **)malloc(argc + 1);
   if (args == NULL) {
     fprintf(stderr, "Memory allocation failed ... \n");
+    return EXIT_FAILURE;
   }
 
   cpyargs(argc, argv, args);
