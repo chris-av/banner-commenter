@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <getopt.h>
+#include "version.h"
 
 
 void cpyargs(int n, char *args_orig[], char *args_cpy[]) {
@@ -41,19 +43,39 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  // create copy of every argv
-  char **args = (char **)malloc(argc + 1);
-  if (args == NULL) {
-    fprintf(stderr, "Memory allocation failed ... \n");
-    return EXIT_FAILURE;
-  }
+  int opt;
 
-  cpyargs(argc, argv, args);
-  convertUpperCase(argc, args);
+  struct option long_options[] = {
+    { "help", no_argument, NULL, 'h' },
+    { "message", no_argument, NULL, 'm' },
+    { "version", no_argument, NULL, 'v' },
+    { NULL, 0, NULL, 0 },
+  };
 
-  for (int i = 0; i < argc; i++) {
-    printf("%d (argv) : %s\n", i, argv[i]);
-    printf("%d (args) : %s\n", i, args[i]);
+  char *message = NULL;
+
+  while ((opt = getopt_long(argc, argv, "hvm:", long_options, NULL)) != -1) {
+    switch (opt) {
+      case 'h':
+        printf("\n");
+        printf("  -h, --help       help, run `man banner-commenter` for full docs\n");
+        printf("  -v, --version    get running version\n");
+        printf("  -m, --message    pass string argument, must be wrapped in quotes\n");
+        printf("\n");
+        printf("\n");
+        break;
+      case 'v':
+        printf("banner-commenter %s\n", PROGRAM_VERSION);
+        break;
+      case 'm':
+        message = optarg;
+        printf("here is your message : %s\n", message);
+        break;
+      default:
+        printf("unexpected case\n");
+        return EXIT_FAILURE;
+      
+    }
   }
 
   return 0;
