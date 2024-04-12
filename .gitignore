@@ -1,0 +1,24 @@
+bin/
+objs/
+
+# any object files
+*.o
+*.so
+*.obj
+*.dll
+
+
+# any executables
+*.exe
+*.out
+
+
+# personal markdown files
+*.notes.md
+*.todo.md
+
+
+# misc
+.DS_Store
+*.swp
+
