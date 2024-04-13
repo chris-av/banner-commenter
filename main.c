@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 
   int opt;
 
-  struct option long_options[] = {
+  struct option long_opts[] = {
       {"help", no_argument, NULL, 'h'},
       {"message", no_argument, NULL, 'm'},
       {"version", no_argument, NULL, 'v'},
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
   char *message = NULL;
 
-  while ((opt = getopt_long(argc, argv, "hvm:", long_options, NULL)) != -1) {
+  while ((opt = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
     switch (opt) {
     case 'h':
       printf("\n");
