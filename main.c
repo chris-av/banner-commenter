@@ -6,6 +6,20 @@
 #include <string.h>
 #include <sys/ioctl.h>
 
+struct Configuration {
+  char prefix;
+  int margin;
+  int padding;
+  int maxlen;
+};
+
+struct Configuration config = {
+    .prefix = '#',
+    .margin = 10,
+    .padding = 10,
+    .maxlen = 80,
+};
+
 void cpyargs(int n, char *args_orig[], char *args_cpy[]) {
   for (int i = 0; i < n; i++) {
     args_cpy[i] = (char *)malloc(strlen(args_orig[i]) + 1);
