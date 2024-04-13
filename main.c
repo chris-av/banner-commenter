@@ -28,6 +28,14 @@ void get_terminal_dim(struct winsize *sz) {
   return;
 }
 
+char* generateBannerBorder(int width) {
+  char prefix = '#';
+  char* border = (char *)malloc(((width) + 1) * sizeof(char));
+  memset(border, prefix, width);
+  border[width] = '\0';
+  return border;
+}
+
 int main(int argc, char *argv[]) {
 
   struct winsize sz;
@@ -69,7 +77,22 @@ int main(int argc, char *argv[]) {
     case 'm':
       message = optarg;
       convertUpperCase(message);
-      printf("here is your message : %s\n", message);
+      int width = sz.ws_col;
+      char *border = generateBannerBorder(width);
+
+      printf("\n");
+
+      printf("%s\n", border);
+      printf("%s\n", border);
+      printf("## \n");
+      printf("## %s\n", message);
+      printf("## \n");
+      printf("%s", border);
+      printf("%s", border);
+
+      printf("\n");
+      printf("\n");
+
       break;
 
     default:
