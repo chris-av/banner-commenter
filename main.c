@@ -43,8 +43,9 @@ void get_terminal_dim(struct winsize *sz) {
 }
 
 char* generateBannerBorder(int width) {
-  char prefix = '#';
-  char* border = (char *)malloc(((width) + 1) * sizeof(char));
+char *generateBannerBorder(int width) {
+  char prefix = config.prefix;
+  char *border = (char *)malloc(((width) + 1) * sizeof(char));
   memset(border, prefix, width);
   border[width] = '\0';
   return border;
