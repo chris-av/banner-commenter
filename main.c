@@ -17,13 +17,9 @@ void cpyargs(int n, char *args_orig[], char *args_cpy[]) {
   return;
 }
 
-
-void convertUpperCase(int n, char *args[]) {
-  for (int i = 0; i < n; i++) {
-    char *arg = args[i];
-    for (int j = 0; arg[j] != '\0'; j++) {
-      arg[j] = toupper(arg[j]);
-    }
+void convertUpperCase(char *txt) {
+  for (int i = 0; txt[i] != '\0'; i++) {
+    txt[i] = toupper(txt[i]);
   }
 }
 
@@ -55,7 +51,6 @@ int main(int argc, char *argv[]) {
 
   while ((opt = getopt_long(argc, argv, "hvm:", long_options, NULL)) != -1) {
     switch (opt) {
-        printf("here is your message : %s\n", message);
     case 'h':
       printf("\n");
       printf("  -h, --help       help, run `man banner-commenter` for full "
