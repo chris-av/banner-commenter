@@ -42,7 +42,6 @@ void get_terminal_dim(struct winsize *sz) {
   return;
 }
 
-char* generateBannerBorder(int width) {
 char *generateBannerBorder(int width) {
   char prefix = config.prefix;
   char *border = (char *)malloc(((width) + 1) * sizeof(char));
@@ -65,31 +64,72 @@ int main(int argc, char *argv[]) {
 
   struct option long_opts[] = {
       {"help", no_argument, NULL, 'h'},
-      {"message", no_argument, NULL, 'm'},
       {"version", no_argument, NULL, 'v'},
+      {"show-config", no_argument, NULL, 's'},
+      {"padding", no_argument, NULL, 'p'},
+      {"margin", no_argument, NULL, 'm'},
+      {"length", no_argument, NULL, 'l'},
+      {"out", no_argument, NULL, 'o'},
       {NULL, 0, NULL, 0},
   };
-
-  char *message = NULL;
+  char *short_opts = "hvsp:m:l:o:";
 
   while ((opt = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
     switch (opt) {
-    case 'h':
+    case 'p': {
+      int padding;
+      char *endptr;
+      padding = strtol(optarg, &endptr, 10);
+      config.padding = padding;
+      break;
+    }
+
+    case 'm': {
+      int margin;
+      char *endptr;
+      margin = strtol(optarg, &endptr, 10);
+      config.margin = margin;
+      break;
+    }
+
+    case 'l': {
+      int maxlen;
+      char *endptr;
+      maxlen = strtol(optarg, &endptr, 10);
+      config.maxlen = maxlen;
+      break;
+    }
+
+    case 'h': {
       printf("\n");
       printf("  -h, --help       help, run `man banner-commenter` for full "
              "docs\n");
       printf("  -v, --version    get running version\n");
-      printf("  -m, --message    pass string argument, must be wrapped in "
+      printf("  -p, --padding    set padding\n");
+      printf("  -m, --margin     set margin\n");
+      printf("  -o, --out        pass string argument, must be wrapped in "
              "quotes\n");
       printf("\n");
       printf("\n");
-      break;
+      return 0;
+    }
 
-    case 'v':
+    case 'v': {
       printf("banner-commenter %s\n", PROGRAM_VERSION);
-      break;
+      return 0;
+    }
 
-    case 'm':
+    case 's': {
+      printf("showing config : \n");
+      printf("  margin \t: \t%d\n", config.margin);
+      printf("  padding \t: \t%d\n", config.padding);
+      printf("  prefix \t: \t%d\n", config.prefix);
+      printf("  maxlen \t: \t%d\n", config.maxlen);
+      break;
+    }
+
+    case 'o': {
+      char *message = NULL;
       message = optarg;
       convertUpperCase(message);
       int width = sz.ws_col;
@@ -108,11 +148,13 @@ int main(int argc, char *argv[]) {
       printf("\n");
       printf("\n");
 
-      break;
+      return 0;
+    }
 
-    default:
+    default: {
       printf("unexpected case\n");
       return EXIT_FAILURE;
+    }
     }
   }
 
