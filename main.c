@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
   }
 
   int opt;
+  char *message = NULL;
+  size_t non_option_len = 0;
 
   struct option long_opts[] = {
       {"help", no_argument, NULL, 'h'},
@@ -92,36 +94,44 @@ int main(int argc, char *argv[]) {
       printf("  maxlen \t: \t%d\n", config.maxlen);
       break;
     }
-
-    case 'o': {
-      char *message = NULL;
-      message = optarg;
-      convertUpperCase(message);
-      int width = sz.ws_col;
-      char *border = generateBannerBorder(width, &config);
-
-      printf("\n");
-
-      printf("%s\n", border);
-      printf("%s\n", border);
-      printf("## \n");
-      printf("## %s\n", message);
-      printf("## \n");
-      printf("%s", border);
-      printf("%s", border);
-
-      printf("\n");
-      printf("\n");
-
-      return 0;
-    }
-
-    default: {
-      printf("unexpected case\n");
-      return EXIT_FAILURE;
-    }
     }
   }
+
+  for (int i = optind; i < argc; i++) {
+    non_option_len += strlen(argv[i]);
+  }
+
+  message = malloc(non_option_len + argc - optind + 1);
+  if (message == NULL) {
+    fprintf(stderr, "Memory allocation failed\n");
+    return EXIT_FAILURE;
+  }
+
+  strcpy(message, "");
+  for (int i = optind; i < argc; i++) {
+    strcat(message, argv[i]);
+    if (i < argc - 1) {
+      strcat(message, " ");
+    }
+  }
+
+  convertUpperCase(message);
+
+  int width = sz.ws_col;
+  char *border = generateBannerBorder(width, &config);
+
+  printf("\n");
+  printf("%s\n", border);
+  printf("%s\n", border);
+  printf("## \n");
+  printf("## %s\n", message);
+  printf("## \n");
+  printf("%s", border);
+  printf("%s", border);
+  printf("\n");
+  printf("\n");
+
+  free(message);
 
   return 0;
 }
