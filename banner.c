@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *generateBannerBorder(int width, struct Configuration *config) {
+char *generateBannerBorder(struct Configuration *config, int width) {
   char prefix = config->prefix;
   char *border = (char *)malloc(((width) + 1) * sizeof(char));
   memset(border, prefix, width);

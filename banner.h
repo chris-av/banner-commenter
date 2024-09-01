@@ -1,1 +1,1 @@
-char *generateBannerBorder(int width, struct Configuration *config);
+char *generateBannerBorder(struct Configuration *config, int width);

@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
   convertUpperCase(message);
 
   int width = sz.ws_col;
-  char *border = generateBannerBorder(width, &config);
+  char *border = generateBannerBorder(&config, width);
 
   printf("\n");
   printf("%s\n", border);
