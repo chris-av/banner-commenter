@@ -117,17 +117,18 @@ int main(int argc, char *argv[]) {
 
   convertUpperCase(message);
 
-  int width = sz.ws_col;
-  char *border = generateBannerBorder(&config, width);
+  int windowWidth = sz.ws_col;
+  char *horizontalBorder = generateBannerBorder(&config, windowWidth);
+  char *verticalBorder = generateBannerBorder(&config, 4);
 
   printf("\n");
-  printf("%s\n", border);
-  printf("%s\n", border);
-  printf("## \n");
-  printf("## %s\n", message);
-  printf("## \n");
-  printf("%s", border);
-  printf("%s", border);
+  printf("%s\n", horizontalBorder);
+  printf("%s\n", horizontalBorder);
+  printf("%s \n", verticalBorder);
+  printf("%s %s\n", verticalBorder, message);
+  printf("%s \n", verticalBorder);
+  printf("%s", horizontalBorder);
+  printf("%s", horizontalBorder);
   printf("\n");
   printf("\n");
 
