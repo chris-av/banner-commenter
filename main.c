@@ -116,19 +116,52 @@ int main(int argc, char *argv[]) {
   }
 
   convertUpperCase(message);
+  int msglen = (int)strlen(message);
 
   int windowWidth = sz.ws_col;
-  char *horizontalBorder = generateBannerBorder(&config, windowWidth);
+  int bannerWidth = find_min(windowWidth, 80);
+
+  char *horizontalBorder = generateBannerBorder(&config, bannerWidth);
   char *verticalBorder = generateBannerBorder(&config, 4);
+
 
   printf("\n");
   printf("%s\n", horizontalBorder);
   printf("%s\n", horizontalBorder);
-  printf("%s \n", verticalBorder);
-  printf("%s %s\n", verticalBorder, message);
-  printf("%s \n", verticalBorder);
-  printf("%s", horizontalBorder);
-  printf("%s", horizontalBorder);
+
+  int counter = 0;
+  printf("%s", verticalBorder);
+  char *str_rest = (char *)malloc(80-counter + 1);
+  char *blank_line = (char *)malloc(80-counter + 1);
+
+  blank_line = memset(blank_line, ' ', 80-counter-8);
+  printf("%s%s\n", blank_line, verticalBorder);
+
+  for (int i = 0; i < msglen; i++) {
+    if (i == 0) {
+      // just print the vertical border and move on
+      printf("%s ", verticalBorder);
+    } else if (i % (80-10) == 0) {
+      // you've reached the end of a line:
+      //   print a vertical border, break line, 
+      //   and then another border and continue printing msg
+      printf(" %s\n%s ", verticalBorder, verticalBorder);
+      counter = 0;
+    }
+    printf("%c", message[i]);
+    counter++;
+  }
+
+  memset(str_rest, 0, strlen(str_rest));
+  str_rest = memset(str_rest, ' ', 80-counter-9);
+  printf("%s%s", str_rest, verticalBorder);
+
+  printf("\n");
+  printf("%s%s%s", verticalBorder, blank_line, verticalBorder);
+
+  printf("\n");
+  printf("%s\n", horizontalBorder);
+  printf("%s\n", horizontalBorder);
   printf("\n");
   printf("\n");
 
