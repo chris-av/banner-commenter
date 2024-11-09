@@ -26,3 +26,16 @@ void get_terminal_dim(struct winsize *sz) {
   return;
 }
 
+int find_min(int n1, int n2) {
+  if (n1 > n2) {
+    return n2;
+  }
+  return n1;
+}
+
+int find_max(int n1, int n2) {
+  if (n1 > n2) {
+    return n1;
+  }
+  return n2;
+}
