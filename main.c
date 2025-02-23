@@ -1,5 +1,5 @@
-#include "config.h"
 #include "banner.h"
+#include "config.h"
 #include "utils.h"
 #include "version.h"
 #include <getopt.h>
