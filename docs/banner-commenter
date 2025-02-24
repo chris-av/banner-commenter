@@ -1,0 +1,54 @@
+.\" Manpage for banner-commenter
+.\" Contact chris.a.valenzuela@protonmail.com to correct errors or typos
+.TH man 8 "23 February 2025" "1.0" "banner-commenter man page"
+.SH NAME
+banner-commenter \- display input text into a banner
+
+.SH SYNOPSIS
+banner-commenter [OPTIONS...] [MESSAGE]
+
+.SH DESCRIPTION
+banner-commenter is a simple program that will display input text in a formatted banner, great for breaking up code into sections
+
+.SH OPTIONS
+Options are supplied with the "-" flag. There are several
+
+.SH ALL OPTIONS
+
+.TP
+.BR \-s ", " \-\-show-config =\fISHOW_CONFIG\fR
+Display the config values that the tool is using to calculate the margins/padding.
+
+.TP
+.BR \-p ", " \-\-padding =\fIPADDING\fR
+Set the padding value.
+
+.TP
+.BR \-m ", " \-\-margin =\fIMARGIN\fR
+Set the padding value.
+
+.TP
+.BR \-l ", " \-\-length =\fILENGTH\fR
+Set the length value.
+
+.TP
+.BR \-o ", " \-\-out =\fIOUT\fR
+Set the output path.
+
+.TP
+.BR \-v ", " \-\-version =\fIVERSION\fR
+Display the version.
+
+.TP
+.BR \-h ", " \-\-help =\fIHELP\fR
+Show help page.
+
+.\".SH SEE ALSO
+.\"cmd(8), cmd(5), cmd(8) 
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHOR
+Christian Valenzuela (chris.a.valenzuela@protonmail.com)
+
